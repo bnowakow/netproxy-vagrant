@@ -1,0 +1,13 @@
+/chef/cookbooks/
+/chef/tmp/
+
+.idea
+.idea/*
+.idea/
+.idea/workspace.xml
+
+*.swp
+
+.vagrant
+.vagrant/
+.vagrant/*
