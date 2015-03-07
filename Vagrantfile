@@ -85,6 +85,14 @@ Vagrant.configure(2) do |config|
   config.vm.provision :chef_solo do |chef|
     chef.cookbooks_path = ["chef/site-cookbooks",  "chef/cookbooks"]
     
+    chef.json = {
+        "username" => "ubuntu",
+        "newrelic" => {
+          "license" => ENV["newrelic_license"]
+        }
+      }
+    
+    chef.add_recipe "newrelic"
     chef.add_recipe "docker"
     chef.add_recipe "netproxy"
   end
