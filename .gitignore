@@ -11,3 +11,5 @@
 .vagrant
 .vagrant/
 .vagrant/*
+
+set_aws_variables_filled.sh

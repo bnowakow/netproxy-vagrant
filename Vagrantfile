@@ -12,7 +12,27 @@ Vagrant.configure(2) do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "ubuntu/trusty64"
+  
+  # config.vm.box = "ubuntu/trusty64"
+  
+  config.vm.box = "dummy"
+  config.vm.box_url = "https://github.com/mitchellh/vagrant-aws/raw/master/dummy.box"
+  # Provider
+  config.vm.provider :aws do |aws, override|
+    aws.access_key_id = ENV["aws_access_key_id"]
+    aws.secret_access_key = ENV["aws_secret_access_key"]
+    aws.keypair_name = ENV["aws_keypair_name"]
+    aws.ami = "ami-4c7a3924" # ami-b22d72da Ubuntu 14.04.1 LTS http://cloud-images.ubuntu.com/trusty/current/
+    # 	ami-4c7a3924 https://aws.amazon.com/marketplace/ordering/ref=dtl_psb_continue?ie=UTF8&productId=ecd5575e-d805-450e-843e-f2a9872b8c80&region=us-east-1
+    aws.region = "us-east-1"
+    aws.instance_type = "t1.micro"
+    aws.security_groups = ["default"]
+    override.ssh.username = "ubuntu"
+    override.ssh.private_key_path = ENV["aws_private_key_path"]
+    aws.tags = {
+      'Name' => 'dns-netproxy'
+    }
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
