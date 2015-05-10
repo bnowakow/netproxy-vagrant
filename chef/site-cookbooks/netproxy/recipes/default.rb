@@ -12,7 +12,7 @@ bash "get netproxy source" do
   action :run   
   environment ({'HOME' => "/home/#{node['username']}", 'USER' => node[:username]}) 
   code <<-EOH
-    git clone 'https://github.com/skorokithakis/netproxy.git'
+    git clone 'https://github.com/bnowakow/netproxy.git'
     
     cd netproxy
     python preprocess.py
@@ -29,7 +29,7 @@ bash "run netproxy " do
     # TODO add below to init.d
     cd netproxy
     docker build -t skorokithakis/netproxy .
-    docker run -p 53:53/udp -p 80:80 -p 443:443 -d skorokithakis/netproxy
+    docker run -p 53:53/udp -p 80:80 -p 443:443 -d bnowakow/netproxy
   EOH
   # TODO check if server already runs
   # not_if { Dir.exists?("/home/ubuntu/netproxy") }
